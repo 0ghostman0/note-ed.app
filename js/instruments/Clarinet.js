@@ -40,7 +40,7 @@ InstrumentBuilder.build({
     "D#5": {"fingering":["12","T","I","II","III","IV","V","VI","4"]},
     "F#5": {"fingering":["12","T","I","II","III","V"], "alternates": [["12","T","I","II","III","IV","5"]]},
     "G#5": {"fingering":["12","T","I","II","III","6"]},
-    "A#5": {"fingering":["12","T","I","II","7"], "alternates": [["12","T","I","II","7L"]]},
+    "A#5": {"fingering":["12","T","I","II","7"], "alternates": [["12","T","I","II","7L"], ["I","IV"]]},
     "Db6": {"fingering":["12","T","II","III","IV","V"]},
     "D#6": {"fingering":["12","T","II","III","IV","5","4"], "alternates": [["12","T","II","III","V","4"]]},
     "F#6": {"fingering":["12","T","II","4"]},
