@@ -11,7 +11,7 @@ InstrumentBuilder.build({
     "D4": {"fingering":["1","3"]},
     "E4": {"fingering":["1","2"]},
     "F4": {"fingering":["1"]},
-    "G4": {"fingering":[]},
+    "G4": {"fingering":[], "alternates": ["1", "3"]},
     "A4": {"fingering":["1","2"]},
     "B4": {"fingering":["2"]},
     "C5": {"fingering":[]},
