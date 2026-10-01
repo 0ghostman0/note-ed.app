@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fingering Practice</title>
+  <link rel="stylesheet" href="css/fingering-practice.css">
+  <script src="js/init.js"></script>
+</head>
+
+<body>
+
+  <div class="page-content">
+  <table class="header-table" id="headTable">
+    <tr>
+	
+      <td class="title-cell" width="35%">	  
+        <div id="instrument-name" align="left"></div>
+        <div id="level-label" align="left"></div>		
+      </td>
+	  
+      <td>
+          <div id="instructions" class="bg-green-500 text-white px-4 py-2 rounded"><span>Choose the correct keys for the note shown, then</span></br>
+		  <span>press the space bar or the button to see if you are right.</span></div>
+      </td>
+	  
+      <td class="score-cell" width="20%">
+        <div align="right">
+          <span class="score-value" id="score-text" align="right">Score: 0 / 0&nbsp&nbsp&nbsp</span>
+		   <div id="timer" class="text-xl font-bold">3:00</div>
+		</div>
+      </td>
+	  
+    </tr>
+  </table>
+  
+  <table class="body-table" width="100%" height="100%">
+    <tr>
+	  <td rowspan="2" width="70%" style="text-align: center; vertical-align: top;">
+        <!-- SVG Diagram -->
+        <div id="fingering-diagram" style="overflow: hidden; display: block; margin: 0; padding: 0;"></div>
+        <!-- Trombone images: otherwise ignore -->
+		<img id="trombone-slide-image" style="display:none; margin-top: 1rem;" />
+      </td>
+	  
+	  <td style="width: 30%; vertical-align: top; text-align: center; margin-left: auto; margin-right: auto; padding: 0px;">
+          <div class="note-cell" id="noteDisplay"></div>
+      </td>
+	</tr>
+	<tr>
+	  <td>
+		  <div id="button-container" class="mt-4">
+            <button id="start-button" class="bg-blue-500 text-white px-4 py-2 rounded" onClick="startCountdown(); showCheckButton()">Start</button>
+		    <button id="check-button" onclick="checkFingering()">Check Fingering</button></br>
+			<button onClick="showStartButton(); setNewNote(); resetTimer(); resetScore()">Restart</button></br>
+			<a href="index.html"><button id="backButton">Back</button></a>
+		  </div>
+      </td>
+	</tr>
+  </table>
+  </div>
+  
+<script src="js/note-renderer.js"></script>
+<script src="js/fingering-practice.js"></script>
+
+<footer>
+  v 1.1
+</footer>
+
+</body>
+</html>

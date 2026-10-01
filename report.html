@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fingering Practice Report</title>
+  <script defer src="js/report.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-xl">
+    <h1 class="text-2xl font-bold mb-4 text-center">Fingering Practice Report</h1>
+    
+    <div class="space-y-4 text-lg">
+      <div><strong>Name:</strong> <span id="rpt-name" class="ml-2"></span></div>
+      <div><strong>Instrument:</strong> <span id="rpt-instrument" class="ml-2"></span></div>
+      <div><strong>Level:</strong> <span id="rpt-level" class="ml-2"></span></div>
+      <div><strong>Time Used:</strong> <span id="rpt-time" class="ml-2"></span></div>
+      <div><strong>Score:</strong> <span id="rpt-score" class="ml-2"></span></div>
+	  <div><strong>Date:</strong> <span id="rpt-date" class="ml-2"></span></div>
+    </div>
+  </div>
+  <div class="text-center mt-6">
+  <button onclick="copyReportLink()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    Copy Report Link
+  </button>
+  <p id="copy-msg" class="mt-2 text-sm text-green-600 hidden">Link copied to clipboard!</p>
+</div>
+</body>
+</html>

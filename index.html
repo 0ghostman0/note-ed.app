@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Select Instrument and Level</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+  <div class="flex-grow flex items-center justify-center">
+  <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md space-y-6">
+    <h1 class="text-2xl font-bold text-center">Start Fingering Practice</h1>
+
+    <!-- Instrument Selection -->
+    <div>
+      <label for="instrument-select" class="block font-semibold mb-1">Select Instrument:</label>
+      <select id="instrument-select" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        <option value="Flute">Flute</option>
+        <option value="Oboe">Oboe</option>
+        <option value="Bassoon">Bassoon</option>
+        <option value="Clarinet">Clarinet</option>
+        <option value="Bass_Clarinet">Bass Clarinet</option>
+        <option value="Alto_Sax">Alto Sax</option>
+        <option value="Tenor_Sax">Tenor Sax</option>
+        <option value="Bari_Sax">Bari Sax</option>
+        <option value="Trumpet">Trumpet</option>
+        <option value="Single_Horn">Single French Horn</option>
+        <option value="Double_Horn">Double French Horn</option>
+        <option value="Trombone">Trombone</option>
+        <option value="Baritone_BC">Baritone BC</option>
+        <option value="Baritone_TC">Baritone TC</option>
+        <option value="Tuba">Tuba</option>
+        <option value="Bass_Guitar">Bass Guitar</option>
+        <option value="Percussion">Percussion</option>		
+      </select>
+    </div>
+
+    <!-- Level Selection -->
+    <div id="levelTypeSelect" class="flex justify-between items-center">
+  
+      <label class="flex items-center gap-2">
+        <input type="radio" id="levels" name="level-type" value="level">
+        <span>Levels</span>
+      </label>
+
+      <label class="flex items-center gap-2">
+        <input type="radio" id="scales" name="level-type" value="scale">
+        <span>Scales</span>
+      </label>
+
+      <!-- Hidden but keeps spacing -->
+      <label class="flex items-center gap-2 invisible">
+        <input type="radio" disabled>
+        <span>Custom</span>
+      </label>
+
+    </div>
+	
+	<div id="level-options" class="hidden">
+      <label for="level-select" class="block font-semibold mb-1">Select Level:</label>
+      <select id="level-select" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        <option value="Level 1">Level 1</option>
+        <option value="Level 2">Level 2</option>
+        <option value="Level 3">Level 3</option>
+        <option value="Level 4">Level 4</option>
+      </select>
+    </div>
+	
+	<div id="scale-options" class="hidden">
+      <div class="grid gap-4" style="grid-template-columns: 40% 60%;">
+
+        <label for="keyCenter" class="block font-semibold mb-1">Key (concert pitch):</label>
+        <label for="scaleType" class="block font-semibold mb-1">Scale Type:</label>
+
+        <select id="keyCenter" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+          <option>C</option>
+          <option>F</option>
+          <option>Bb</option>
+          <option>Eb</option>
+          <option>Ab</option>
+		  <option>Db</option>
+          <option>Gb</option>
+          <option>Cb</option>
+          <option>G</option>
+          <option>D</option>
+		  <option>A</option>
+          <option>E</option>
+          <option>B</option>
+          <option>F#</option>
+          <option>C#</option>
+        </select>
+
+        <select id="scaleType" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+          <option value="Major">Major</option>
+          <option value="Natural Minor">Natural Minor</option>
+          <option value="Harmonic Minor">Harmonic Minor</option>
+          <option value="Melodic Minor">Melodic Minor</option>
+          <option value="Chromatic">Chromatic</option>
+        </select>
+
+      </div>
+    </div>
+
+    <!-- Timer + Target Row -->
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="timer-select" class="block font-semibold mb-1">Time Limit:</label>
+        <select id="timer-select" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+          <option value="60" selected>1 min</option>
+          <option value="120">2 min</option>
+          <option value="180">3 min</option>
+          <option value="300">5 min</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="target-number" class="block font-semibold mb-1">Goal:</label>
+        <input 
+          id="target-number" 
+          type="number" 
+          min="1" 
+          max="100" 
+          step="1"
+          value="25"
+          class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          placeholder="e.g. 20"
+        />
+      </div>
+    </div>
+
+    <!-- Start Button -->
+    <button 
+      onclick="startPractice()" 
+      class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition">
+      GO!
+    </button>
+  </div>
+  </div>
+
+  <footer class="bg-gray-600 text-white text-center p-3">
+    <span>v 1.1</span>
+  </footer>
+
+  <script>
+    function getSelectedLevel() {
+      const selectedType = document.querySelector('input[name="level-type"]:checked');
+
+      // Default safety fallback
+      if (!selectedType) {
+        return document.getElementById("level-select").value;
+      }
+
+      if (selectedType.value === "level") {
+        return document.getElementById("level-select").value;
+      }
+
+      if (selectedType.value === "scale") {
+        const key = document.getElementById("keyCenter").value;
+        const scaleType = document.getElementById("scaleType").value;
+
+        if (scaleType === "Chromatic") {
+          return "Chromatic Scale";
+        }
+
+        return `${key} ${scaleType}`;
+      }
+    }
+
+    function startPractice() {
+      const instrument = document.getElementById("instrument-select").value;
+      const level = getSelectedLevel();
+      const timer = document.getElementById("timer-select").value;
+      const target = document.getElementById("target-number").value;
+
+      const url = `fingering-practice.html?instrument=${encodeURIComponent(instrument)}&level=${encodeURIComponent(level)}&timer=${encodeURIComponent(timer)}&target=${encodeURIComponent(target)}`;
+
+      window.location.href = url;
+    }
+
+    const levelRadio = document.getElementById("levels");
+    const scalesRadio = document.getElementById("scales");
+
+    const levelOptions = document.getElementById("level-options");
+    const scaleOptions = document.getElementById("scale-options");
+
+    function updateSelectionDisplay() {
+      levelOptions.classList.add("hidden");
+      scaleOptions.classList.add("hidden");
+
+      if (levelRadio.checked) {
+        levelOptions.classList.remove("hidden");
+      }
+
+      if (scalesRadio.checked) {
+        scaleOptions.classList.remove("hidden");
+      }
+    }
+
+    levelRadio.addEventListener("change", updateSelectionDisplay);
+    scalesRadio.addEventListener("change", updateSelectionDisplay);
+
+    updateSelectionDisplay();
+  </script>
+</body>
+</html>
