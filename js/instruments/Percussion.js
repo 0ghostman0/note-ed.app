@@ -38,6 +38,7 @@ InstrumentBuilder.build({
     "A#5": {"fingering":["Bb5"]},
   },
   levels: {
+    "First 3 Notes": ["Bb4", "C5", "D5"],
     "Level 1": ["Bb4","C5","D5","Eb5","F5"],
     "Level 2": ["G4","A4","Bb4","C5","D5","Eb5","F5","G5"],
     "Level 3": ["F4","G4","Ab4","A4","Bb4","C5","D5","Eb5","F5","G5","Ab5"],
