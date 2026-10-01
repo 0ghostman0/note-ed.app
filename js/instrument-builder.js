@@ -35,6 +35,13 @@ window.InstrumentBuilder = (() => {
         add(`${key} ${type}`, sequence, sequence);
       }
     }
+    // Shared beginner level, with written C-D-E for the horn exception.
+    const isHorn = ['Single_Horn', 'Double_Horn'].includes(instrument.id);
+    const firstThree = isHorn
+      ? theory.sequence(instrument.scaleRoots.C, 'Major').slice(0, 3)
+      : sequences['Bb Major'].slice(0, 3);
+    instrument.levels = { 'First 3 Notes': firstThree, ...instrument.levels };
+    add('First 3 Notes', instrument.levels['First 3 Notes']);
     const chromatic = theory.chromatic(instrument.chromaticRoot);
     add('Chromatic Scale', chromatic.pool, chromatic.sequence);
     window.instrumentClef = instrument.clef;
