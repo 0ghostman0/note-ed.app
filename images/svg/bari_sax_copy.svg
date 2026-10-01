@@ -78,4 +78,10 @@
      id="lowA"
      transform="matrix(-1,0,0,-1,30,70.894597)"
      style="stroke-width:1" />
+  <circle class="valve"
+     id="bis"
+     cx="71.5"
+     cy="37.85"
+     r="8.25"
+     style="stroke-width:1" />
 </svg>
