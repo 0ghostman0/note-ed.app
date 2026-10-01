@@ -230,7 +230,13 @@ function checkFingering() {
   ];
   const pressedValves = Array.from(document.querySelectorAll('.valve.active')).map(v => v.id);
 
-  const isCorrect = acceptedFingerings.some(correctValves =>
+  const isOboe = (window.currentInstrument || "").toLowerCase() === "oboe";
+  // A full first hole also covers its half-hole region, even if only I is listed.
+  const normalizedFingerings = acceptedFingerings.map(ids =>
+    isOboe && ids.includes("I") ? [...new Set([...ids, "Ihh"])] : ids
+  );
+
+  const isCorrect = normalizedFingerings.some(correctValves =>
     correctValves.length === pressedValves.length &&
     correctValves.every(id => pressedValves.includes(id)) &&
     pressedValves.every(id => correctValves.includes(id))
@@ -330,6 +336,7 @@ console.log("Requested level:", window.currentLevel);
 // === EVENT LISTENERS ===
 function attachFingeringListeners() {
   const isTrombone = (window.currentInstrument || "").toLowerCase() === "trombone";
+  const isOboe = (window.currentInstrument || "").toLowerCase() === "oboe";
 
   document.querySelectorAll(".valve").forEach(el => {
     el.addEventListener("click", () => {
@@ -338,7 +345,23 @@ function attachFingeringListeners() {
 	  if (!gameStarted) return;
 	  
 	  // === If Start Button pressed, allow clicking fingerings
-      el.classList.toggle("active");
+      if (isOboe && (el.id === "I" || el.id === "Ihh")) {
+        const fullHole = document.getElementById("I");
+        const halfHole = document.getElementById("Ihh");
+        if (el.id === "I") {
+          const active = !fullHole.classList.contains("active");
+          fullHole.classList.toggle("active", active);
+          halfHole.classList.toggle("active", active);
+        } else {
+          // Clicking the half-hole region switches full coverage to half coverage.
+          const active = fullHole.classList.contains("active") ||
+            !halfHole.classList.contains("active");
+          fullHole.classList.remove("active");
+          halfHole.classList.toggle("active", active);
+        }
+      } else {
+        el.classList.toggle("active");
+      }
       console.log("Valve toggled:", el.id, "Active:", el.classList.contains("active"));
     });
   });
