@@ -230,10 +230,10 @@ function checkFingering() {
   ];
   const pressedValves = Array.from(document.querySelectorAll('.valve.active')).map(v => v.id);
 
-  const isOboe = (window.currentInstrument || "").toLowerCase() === "oboe";
+  const hasHalfHole = ["oboe", "bassoon"].includes((window.currentInstrument || "").toLowerCase());
   // A full first hole also covers its half-hole region, even if only I is listed.
   const normalizedFingerings = acceptedFingerings.map(ids =>
-    isOboe && ids.includes("I") ? [...new Set([...ids, "Ihh"])] : ids
+    hasHalfHole && ids.includes("I") ? [...new Set([...ids, "Ihh"])] : ids
   );
 
   const isCorrect = normalizedFingerings.some(correctValves =>
@@ -336,7 +336,7 @@ console.log("Requested level:", window.currentLevel);
 // === EVENT LISTENERS ===
 function attachFingeringListeners() {
   const isTrombone = (window.currentInstrument || "").toLowerCase() === "trombone";
-  const isOboe = (window.currentInstrument || "").toLowerCase() === "oboe";
+  const hasHalfHole = ["oboe", "bassoon"].includes((window.currentInstrument || "").toLowerCase());
 
   document.querySelectorAll(".valve").forEach(el => {
     el.addEventListener("click", () => {
@@ -345,7 +345,7 @@ function attachFingeringListeners() {
 	  if (!gameStarted) return;
 	  
 	  // === If Start Button pressed, allow clicking fingerings
-      if (isOboe && (el.id === "I" || el.id === "Ihh")) {
+      if (hasHalfHole && (el.id === "I" || el.id === "Ihh")) {
         const fullHole = document.getElementById("I");
         const halfHole = document.getElementById("Ihh");
         if (el.id === "I") {
