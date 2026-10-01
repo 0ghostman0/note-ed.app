@@ -58,8 +58,8 @@ window.NoteRenderer = (() => {
   }
 
   function parse(note){
-    const m = note.match(/^([A-G])([b#]?)([0-9])$/);
-    return {letter:m[1], accidental:m[2], octave:+m[3]};
+    const m = note.split("-")[0].match(/^([A-G])(#{1,3}|b{1,3})?([0-9])$/);
+    return {letter:m[1], accidental:m[2] || "" || "", octave:+m[3]};
   }
 
   function getY(note, clef){
@@ -132,7 +132,7 @@ function drawTreble() {
 
     if (!p.accidental) return;
 
-    if (p.accidental === "b") {
+    if (p.accidental.startsWith("b")) {
       accidentalGroup.innerHTML = `
         <text
           x="${accidentalX() + config.flatXOffset}"
@@ -140,11 +140,11 @@ function drawTreble() {
           font-size="72"
           font-family="serif"
           fill="black"
-        >♭</text>
+        >${"♭".repeat(p.accidental.length)}</text>
       `;
     }
 
-    if (p.accidental === "#") {
+    if (p.accidental.startsWith("#")) {
       accidentalGroup.innerHTML = `
         <text
           x="${accidentalX() + config.sharpXOffset}"
@@ -152,7 +152,7 @@ function drawTreble() {
           font-size="58"
           font-family="serif"
           fill="black"
-        >♯</text>
+        >${p.accidental.length === 2 ? "𝄪" : "♯".repeat(p.accidental.length)}</text>
       `;
     }
   }

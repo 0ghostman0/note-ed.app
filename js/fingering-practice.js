@@ -391,9 +391,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.fingerings = window.fingeringsByLevel[window.currentLevel];
       window.allNotes = Object.keys(window.fingerings);
     } else {
-      console.warn(`Level "${window.currentLevel}" not found. Defaulting to Level 1.`);
-      window.fingerings = window.fingeringsByLevel["Level 1"];
-      window.allNotes = Object.keys(window.fingerings);
+      throw new Error(window.instrumentLevelErrors[window.currentLevel] || `Unknown level: ${window.currentLevel}`);
     }
 
     console.log("Instrument:", window.currentInstrument);
@@ -413,11 +411,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (err) {
     console.error("Error loading instrument resources:", err);
-    handleLoadingError();
+    handleLoadingError(err);
   }
 });
 
-function handleLoadingError() {
+function handleLoadingError(error) {
   const diagramDiv = document.getElementById("fingering-diagram");
 
   if (diagramDiv) {
@@ -427,5 +425,10 @@ function handleLoadingError() {
         <p>Please try refreshing the page or <a href="index.html">select a different instrument</a>.</p>
       </div>
     `;
+    if (error) {
+      const detail = document.createElement('p');
+      detail.textContent = error.message;
+      diagramDiv.appendChild(detail);
+    }
   }
 }
