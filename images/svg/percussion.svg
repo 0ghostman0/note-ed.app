@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="389.53073"
+   height="212.6846"
+   viewBox="0 0 389.53073 212.6846"
+   sodipodi:docname="percussion.svg"
+   inkscape:version="1.4.2 (ebf0e94, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="frame 1"
+     transform="translate(68.53073,0.27336743)">
+    <path
+       id="rect35"
+       style="fill:#999999;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1"
+       d="m -67.529297,1.0618362 0.299973,209.5272538 h 27.224609 L -40.304688,193.77148 304,153.56641 V 157.75 h 16 V 53 h -16 v 2.644531 L -40.304688,14.748047 V 1.0618362 Z M -40.304688,25 304,65.898438 V 83.792969 H -40.304688 Z m 0,69.044922 H 304 V 106.77344 H -40.304688 Z m 0,23.333988 H 304 v 25.93554 l -344.304688,40.20313 z"
+       sodipodi:nodetypes="cccccccccccccccccccccccccccc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="lower manual"
+     style="display:inline;stroke:#000000;stroke-opacity:1"
+     transform="translate(68.53073,3.8730408)">
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.25972;stroke-opacity:1"
+       id="C6"
+       width="15.302778"
+       height="60.115276"
+       x="286.06735"
+       y="96.44236"
+       inkscape:label="C6" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.38225;stroke-opacity:1"
+       id="B5"
+       width="14.555252"
+       height="62.867752"
+       x="268.56613"
+       y="96.566124"
+       inkscape:label="B5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.52066;stroke-opacity:1"
+       id="A5"
+       width="14.166834"
+       height="65.479332"
+       x="250.94783"
+       y="96.572838"
+       inkscape:label="A5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.47911;stroke-opacity:1"
+       id="G5"
+       width="14.833393"
+       height="68.458389"
+       x="232.61455"
+       y="96.552055"
+       inkscape:label="G5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.61345;stroke-opacity:1"
+       id="F5"
+       width="14.824044"
+       height="70.824043"
+       x="214.80673"
+       y="96.619225"
+       inkscape:label="F5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.60612;stroke-opacity:1"
+       id="E5"
+       width="14.268877"
+       height="73.518875"
+       x="197.30307"
+       y="96.615555"
+       inkscape:label="E5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.52156;stroke-opacity:1"
+       id="D5"
+       width="14.478441"
+       height="76.603447"
+       x="179.44827"
+       y="96.57328"
+       inkscape:label="D5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.52551;stroke-opacity:1"
+       id="C5"
+       width="14.849493"
+       height="78.911995"
+       x="161.32526"
+       y="96.575249"
+       inkscape:label="C5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.51581;stroke-opacity:1"
+       id="B4"
+       width="14.359186"
+       height="81.671692"
+       x="143.8204"
+       y="96.632912"
+       inkscape:label="B4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.45499;stroke-opacity:1"
+       id="A4"
+       width="14.232509"
+       height="84.357506"
+       x="125.91499"
+       y="96.539993"
+       inkscape:label="A4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.49355;stroke-opacity:1"
+       id="G4"
+       width="14.443954"
+       height="87.131454"
+       x="107.93428"
+       y="96.55928"
+       inkscape:label="G4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.50412;stroke-opacity:1"
+       id="F4"
+       width="14.745878"
+       height="89.933372"
+       x="89.93956"
+       y="96.62706"
+       inkscape:label="F4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.81124;stroke-opacity:1"
+       id="E4"
+       width="14.001267"
+       height="92.188766"
+       x="72.405609"
+       y="96.718109"
+       inkscape:label="E4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.82663;stroke-opacity:1"
+       id="D4"
+       width="14.110871"
+       height="94.92337"
+       x="54.475815"
+       y="96.725815"
+       inkscape:label="D4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.83705;stroke-opacity:1"
+       id="C4"
+       width="14.475454"
+       height="97.725449"
+       x="36.231026"
+       y="96.606018"
+       inkscape:label="C4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.68429;stroke-opacity:1"
+       id="B3"
+       width="14.331485"
+       height="101.03053"
+       x="18.42465"
+       y="96.732651"
+       inkscape:label="B3" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.61671;stroke-opacity:1"
+       id="A3"
+       width="14.205052"
+       height="104.35297"
+       x="0.55378193"
+       y="96.617706"
+       inkscape:label="A3" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.65955;stroke-opacity:1"
+       id="G3"
+       width="14.41609"
+       height="107.78443"
+       x="-17.392244"
+       y="96.641563"
+       inkscape:label="G3" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.6713;stroke-opacity:1"
+       id="F3"
+       width="14.717431"
+       height="111.2505"
+       x="-35.352249"
+       y="96.72541"
+       inkscape:label="F3" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="upper manual"
+     style="display:inline;stroke:#000000;stroke-opacity:1"
+     transform="translate(68.53073,0.27336743)">
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.12177;stroke-opacity:1"
+       id="Bb5"
+       width="15.522971"
+       height="63.783009"
+       x="259.3923"
+       y="44.873775"
+       inkscape:label="Bb5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.12272;stroke-opacity:1"
+       id="Ab5"
+       width="15.168461"
+       height="67.052422"
+       x="241.62671"
+       y="41.603886"
+       inkscape:label="Ab5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.14318;stroke-opacity:1"
+       id="Gb5"
+       width="14.971228"
+       height="69.153282"
+       x="223.8709"
+       y="39.492794"
+       inkscape:label="F#5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.13781;stroke-opacity:1"
+       id="Eb5"
+       width="14.888211"
+       height="74.550346"
+       x="188.33609"
+       y="34.010025"
+       inkscape:label="Eb5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.16063;stroke-opacity:1"
+       id="Db5"
+       width="15.130552"
+       height="78.063057"
+       x="170.40468"
+       y="30.662687"
+       inkscape:label="C#5" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.18523;stroke-opacity:1"
+       id="Bb4"
+       width="14.929177"
+       height="82.899811"
+       x="134.70807"
+       y="25.725233"
+       inkscape:label="Bb4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.2437;stroke-opacity:1"
+       id="Ab4"
+       width="14.959089"
+       height="85.669762"
+       x="116.70609"
+       y="22.926046"
+       inkscape:label="Ab4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.25309;stroke-opacity:1"
+       id="Gb4"
+       width="14.596151"
+       height="87.870087"
+       x="98.856331"
+       y="20.897806"
+       inkscape:label="F#4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.28567;stroke-opacity:1"
+       id="Eb4"
+       width="14.475186"
+       height="93.140816"
+       x="63.163727"
+       y="15.345627"
+       inkscape:label="Eb4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.31947;stroke-opacity:1"
+       id="Db4"
+       width="14.53"
+       height="95.67028"
+       x="45.502953"
+       y="12.710876"
+       inkscape:label="C#4" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.31123;stroke-opacity:1"
+       id="Bb3"
+       width="14.906652"
+       height="101.6175"
+       x="9.6890001"
+       y="6.3371887"
+       inkscape:label="Bb3" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.37593;stroke-opacity:1"
+       id="Ab3"
+       width="14.93652"
+       height="105.01286"
+       x="-8.2858152"
+       y="2.905983"
+       inkscape:label="Ab3" />
+    <rect
+       class="valve"
+       style="stroke:#000000;stroke-width:1.38632;stroke-opacity:1"
+       id="Gb3"
+       width="14.574"
+       height="107.70999"
+       x="-26.108644"
+       y="0.41979256"
+       inkscape:label="F#3" />
+  </g>
+</svg>
