@@ -1,272 +1,48 @@
-// Instrument-specific fingerings, beginner levels, and written starting registers.
+// Instrument-specific data. Shared scale rules live in js/scales.js.
 InstrumentBuilder.build({
-  "id": "Tuba",
-  "clef": "bass",
-  "transpose": {
-    "semitones": 0,
-    "steps": 0
+  id: "Tuba",
+  clef: "bass",
+  transpose: {"semitones":0,"steps":0},
+  notes: {
+    "E1": {"fingering":["1","2","3"]},
+    "F1": {"fingering":["1","3"]},
+    "G1": {"fingering":["1","2"]},
+    "A1": {"fingering":["2"]},
+    "B1": {"fingering":["1","2","3"]},
+    "C2": {"fingering":["1","3"]},
+    "D2": {"fingering":["1","2"]},
+    "E2": {"fingering":["2"]},
+    "F2": {"fingering":[]},
+    "G2": {"fingering":["1","2"]},
+    "A2": {"fingering":["2"]},
+    "B2": {"fingering":["1","2"]},
+    "C3": {"fingering":["1"]},
+    "D3": {"fingering":[]},
+    "E3": {"fingering":["2"]},
+    "F3": {"fingering":[]},
+    "G3": {"fingering":["1","2"]},
+    "A3": {"fingering":["2"]},
+    "F#1": {"fingering":["2","3"]},
+    "G#1": {"fingering":["1"]},
+    "A#1": {"fingering":[]},
+    "Db2": {"fingering":["2","3"]},
+    "D#2": {"fingering":["1"]},
+    "F#2": {"fingering":["2","3"]},
+    "G#2": {"fingering":["1"]},
+    "A#2": {"fingering":[]},
+    "Db3": {"fingering":["2"]},
+    "D#3": {"fingering":["1"]},
+    "F#3": {"fingering":["2","3"]},
+    "G#3": {"fingering":["1"]},
+    "A#3": {"fingering":[]},
   },
-  "notes": {
-    "E1": {
-      "fingering": [
-        "1",
-        "2",
-        "3"
-      ]
-    },
-    "F1": {
-      "fingering": [
-        "1",
-        "3"
-      ]
-    },
-    "G1": {
-      "fingering": [
-        "1",
-        "2"
-      ]
-    },
-    "A1": {
-      "fingering": [
-        "2"
-      ]
-    },
-    "B1": {
-      "fingering": [
-        "1",
-        "2",
-        "3"
-      ]
-    },
-    "C2": {
-      "fingering": [
-        "1",
-        "3"
-      ]
-    },
-    "D2": {
-      "fingering": [
-        "1",
-        "2"
-      ]
-    },
-    "E2": {
-      "fingering": [
-        "2"
-      ]
-    },
-    "F2": {
-      "fingering": []
-    },
-    "G2": {
-      "fingering": [
-        "1",
-        "2"
-      ]
-    },
-    "A2": {
-      "fingering": [
-        "2"
-      ]
-    },
-    "B2": {
-      "fingering": [
-        "1",
-        "2"
-      ]
-    },
-    "C3": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "D3": {
-      "fingering": []
-    },
-    "E3": {
-      "fingering": [
-        "2"
-      ]
-    },
-    "F3": {
-      "fingering": []
-    },
-    "G3": {
-      "fingering": [
-        "1",
-        "2"
-      ]
-    },
-    "A3": {
-      "fingering": [
-        "2"
-      ]
-    },
-    "F#1": {
-      "fingering": [
-        "2",
-        "3"
-      ]
-    },
-    "Gb1": {
-      "fingering": [
-        "2",
-        "3"
-      ]
-    },
-    "G#1": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "Ab1": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "A#1": {
-      "fingering": []
-    },
-    "Bb1": {
-      "fingering": []
-    },
-    "Db2": {
-      "fingering": [
-        "2",
-        "3"
-      ]
-    },
-    "D#2": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "Eb2": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "F#2": {
-      "fingering": [
-        "2",
-        "3"
-      ]
-    },
-    "Gb2": {
-      "fingering": [
-        "2",
-        "3"
-      ]
-    },
-    "G#2": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "Ab2": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "A#2": {
-      "fingering": []
-    },
-    "Bb2": {
-      "fingering": []
-    },
-    "Db3": {
-      "fingering": [
-        "2"
-      ]
-    },
-    "D#3": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "Eb3": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "F#3": {
-      "fingering": [
-        "2",
-        "3"
-      ]
-    },
-    "Gb3": {
-      "fingering": [
-        "2",
-        "3"
-      ]
-    },
-    "G#3": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "Ab3": {
-      "fingering": [
-        "1"
-      ]
-    },
-    "A#3": {
-      "fingering": []
-    },
-    "Bb3": {
-      "fingering": []
-    }
+  levels: {
+    "Level 1": ["Bb1","C2","D2","Eb2","F2"],
+    "Level 2": ["G1","A1","Bb1","C2","D2","Eb2","F2","G2"],
+    "Level 3": ["G1","Ab1","A1","Bb1","C2","D2","Eb2","F2","G2","Ab2","Bb2"],
+    "Level 4": ["G1","Ab1","A1","Bb1","C2","Db2","D2","Eb2","E2","F2","G2","Ab2","A2","Bb2"],
   },
-  "levels": {
-    "Level 1": [
-      "Bb1",
-      "C2",
-      "D2",
-      "Eb2",
-      "F2"
-    ],
-    "Level 2": [
-      "G1",
-      "A1",
-      "Bb1",
-      "C2",
-      "D2",
-      "Eb2",
-      "F2",
-      "G2"
-    ],
-    "Level 3": [
-      "G1",
-      "Ab1",
-      "A1",
-      "Bb1",
-      "C2",
-      "D2",
-      "Eb2",
-      "F2",
-      "G2",
-      "Ab2",
-      "Bb2"
-    ],
-    "Level 4": [
-      "G1",
-      "Ab1",
-      "A1",
-      "Bb1",
-      "C2",
-      "Db2",
-      "D2",
-      "Eb2",
-      "E2",
-      "F2",
-      "G2",
-      "Ab2",
-      "A2",
-      "Bb2"
-    ]
-  },
-  "scaleRoots": {
+  scaleRoots: {
     "C": "C2",
     "F": "F2",
     "Bb": "Bb1",
@@ -281,9 +57,9 @@ InstrumentBuilder.build({
     "E": "E2",
     "B": "B1",
     "F#": "F#2",
-    "C#": "C#2"
+    "C#": "C#2",
   },
-  "minorRoots": {
+  minorRoots: {
     "A": "A1",
     "D": "D2",
     "G": "G2",
@@ -298,7 +74,7 @@ InstrumentBuilder.build({
     "C#": "C#2",
     "G#": "G#2",
     "D#": "D#2",
-    "A#": "A#1"
+    "A#": "A#1",
   },
-  "chromaticRoot": "Bb1"
+  chromaticRoot: "Bb1",
 });

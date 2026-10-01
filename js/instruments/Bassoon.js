@@ -1,555 +1,51 @@
-// Instrument-specific fingerings, beginner levels, and written starting registers.
+// Instrument-specific data. Shared scale rules live in js/scales.js.
 InstrumentBuilder.build({
-  "id": "Bassoon",
-  "clef": "bass",
-  "transpose": {
-    "semitones": 0,
-    "steps": 0
+  id: "Bassoon",
+  clef: "bass",
+  transpose: {"semitones":0,"steps":0},
+  notes: {
+    "B1": {"fingering":["I","Ihh","II","III","IV","V","VI","15","16","17","19","8"]},
+    "C2": {"fingering":["I","Ihh","II","III","IV","V","VI","15","16","19","8"]},
+    "D2": {"fingering":["I","Ihh","II","III","IV","V","VI","15","19","8"]},
+    "E2": {"fingering":["I","Ihh","II","III","IV","V","VI","19","8","WK"]},
+    "F2": {"fingering":["I","Ihh","II","III","IV","V","VI","8","WK"]},
+    "G2": {"fingering":["I","Ihh","II","III","IV","V","VI","WK"]},
+    "A2": {"fingering":["I","Ihh","II","III","IV","V","WK"]},
+    "B2": {"fingering":["I","Ihh","II","III","IV"]},
+    "C3": {"fingering":["WK","I","Ihh","II","III"]},
+    "D3": {"fingering":["WK","I","Ihh","II"]},
+    "E3": {"fingering":["WK","I","Ihh"]},
+    "F3": {"fingering":["WK"]},
+    "G3": {"fingering":["Ihh","II","III","IV","V","VI","WK"]},
+    "A3": {"fingering":["I","Ihh","II","III","IV","V"]},
+    "B3": {"fingering":["I","Ihh","II","III","IV"]},
+    "C4": {"fingering":["I","Ihh","II","III"]},
+    "D4": {"fingering":["I","Ihh","II"]},
+    "E4": {"fingering":["I","Ihh","III","13","IV","V","VI"]},
+    "F4": {"fingering":["II","III","13","IV","V"]},
+    "G4": {"fingering":["Ihh","II","III","IV","8"]},
+    "Bb1": {"fingering":["I","Ihh","II","III","IV","V","VI","15","16","17","18","19","8"]},
+    "Db2": {"fingering":["I","Ihh","II","III","IV","V","VI","15","16","14","19","8"]},
+    "D#2": {"fingering":["I","Ihh","II","III","IV","V","VI","15","13","19","8"]},
+    "F#2": {"fingering":["I","Ihh","II","III","IV","V","VI","9","8","WK"]},
+    "G#2": {"fingering":["I","Ihh","II","III","IV","V","VI","WK","11"]},
+    "A#2": {"fingering":["I","Ihh","II","III","IV","V","WK","7"]},
+    "Db3": {"fingering":["WK","I","Ihh","II","III","3"]},
+    "D#3": {"fingering":["WK","I","Ihh","II","3"]},
+    "F#3": {"fingering":["Ihh","II","III","IV","V","VI","9","8","WK"]},
+    "G#3": {"fingering":["Ihh","II","III","IV","V","VI","11","WK"]},
+    "A#3": {"fingering":["I","Ihh","II","III","IV","V","7"]},
+    "Db4": {"fingering":["I","Ihh","II","III","3"]},
+    "D#4": {"fingering":["I","Ihh","II","IV","V","VI"]},
+    "F#4": {"fingering":["Ihh","II","III","IV","13"]},
   },
-  "notes": {
-    "B1": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "15",
-        "16",
-        "17",
-        "19",
-        "8"
-      ]
-    },
-    "C2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "15",
-        "16",
-        "19",
-        "8"
-      ]
-    },
-    "D2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "15",
-        "19",
-        "8"
-      ]
-    },
-    "E2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "19",
-        "8",
-        "WK"
-      ]
-    },
-    "F2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "8",
-        "WK"
-      ]
-    },
-    "G2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "WK"
-      ]
-    },
-    "A2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "WK"
-      ]
-    },
-    "B2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV"
-      ]
-    },
-    "C3": {
-      "fingering": [
-        "WK",
-        "I",
-        "Ihh",
-        "II",
-        "III"
-      ]
-    },
-    "D3": {
-      "fingering": [
-        "WK",
-        "I",
-        "Ihh",
-        "II"
-      ]
-    },
-    "E3": {
-      "fingering": [
-        "WK",
-        "I",
-        "Ihh"
-      ]
-    },
-    "F3": {
-      "fingering": [
-        "WK"
-      ]
-    },
-    "G3": {
-      "fingering": [
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "WK"
-      ]
-    },
-    "A3": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V"
-      ]
-    },
-    "B3": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV"
-      ]
-    },
-    "C4": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III"
-      ]
-    },
-    "D4": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II"
-      ]
-    },
-    "E4": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "III",
-        "13",
-        "IV",
-        "V",
-        "VI"
-      ]
-    },
-    "F4": {
-      "fingering": [
-        "II",
-        "III",
-        "13",
-        "IV",
-        "V"
-      ]
-    },
-    "G4": {
-      "fingering": [
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "8"
-      ]
-    },
-    "Bb1": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "8"
-      ]
-    },
-    "Db2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "15",
-        "16",
-        "14",
-        "19",
-        "8"
-      ]
-    },
-    "D#2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "15",
-        "13",
-        "19",
-        "8"
-      ]
-    },
-    "Eb2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "15",
-        "13",
-        "19",
-        "8"
-      ]
-    },
-    "F#2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "9",
-        "8",
-        "WK"
-      ]
-    },
-    "Gb2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "9",
-        "8",
-        "WK"
-      ]
-    },
-    "G#2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "WK",
-        "11"
-      ]
-    },
-    "Ab2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "WK",
-        "11"
-      ]
-    },
-    "A#2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "WK",
-        "7"
-      ]
-    },
-    "Bb2": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "WK",
-        "7"
-      ]
-    },
-    "Db3": {
-      "fingering": [
-        "WK",
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "3"
-      ]
-    },
-    "D#3": {
-      "fingering": [
-        "WK",
-        "I",
-        "Ihh",
-        "II",
-        "3"
-      ]
-    },
-    "Eb3": {
-      "fingering": [
-        "WK",
-        "I",
-        "Ihh",
-        "II",
-        "3"
-      ]
-    },
-    "F#3": {
-      "fingering": [
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "9",
-        "8",
-        "WK"
-      ]
-    },
-    "Gb3": {
-      "fingering": [
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "9",
-        "8",
-        "WK"
-      ]
-    },
-    "G#3": {
-      "fingering": [
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "11",
-        "WK"
-      ]
-    },
-    "Ab3": {
-      "fingering": [
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "VI",
-        "11",
-        "WK"
-      ]
-    },
-    "A#3": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "7"
-      ]
-    },
-    "Bb3": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "V",
-        "7"
-      ]
-    },
-    "Db4": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "III",
-        "3"
-      ]
-    },
-    "D#4": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "IV",
-        "V",
-        "VI"
-      ]
-    },
-    "Eb4": {
-      "fingering": [
-        "I",
-        "Ihh",
-        "II",
-        "IV",
-        "V",
-        "VI"
-      ]
-    },
-    "F#4": {
-      "fingering": [
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "13"
-      ]
-    },
-    "Gb4": {
-      "fingering": [
-        "Ihh",
-        "II",
-        "III",
-        "IV",
-        "13"
-      ]
-    }
+  levels: {
+    "Level 1": ["Bb2","C3","D3","Eb3","F3"],
+    "Level 2": ["G2","A2","Bb2","C3","D3","Eb3","F3","G3"],
+    "Level 3": ["G2","Ab2","A2","Bb2","C3","D3","Eb3","F3","G3","Ab3"],
+    "Level 4": ["G2","Ab2","A2","Bb2","C3","Db3","D3","Eb3","E3","F3","G3","Ab3","A3"],
   },
-  "levels": {
-    "Level 1": [
-      "Bb2",
-      "C3",
-      "D3",
-      "Eb3",
-      "F3"
-    ],
-    "Level 2": [
-      "G2",
-      "A2",
-      "Bb2",
-      "C3",
-      "D3",
-      "Eb3",
-      "F3",
-      "G3"
-    ],
-    "Level 3": [
-      "G2",
-      "Ab2",
-      "A2",
-      "Bb2",
-      "C3",
-      "D3",
-      "Eb3",
-      "F3",
-      "G3",
-      "Ab3"
-    ],
-    "Level 4": [
-      "G2",
-      "Ab2",
-      "A2",
-      "Bb2",
-      "C3",
-      "Db3",
-      "D3",
-      "Eb3",
-      "E3",
-      "F3",
-      "G3",
-      "Ab3",
-      "A3"
-    ]
-  },
-  "scaleRoots": {
+  scaleRoots: {
     "C": "C3",
     "F": "F2",
     "Bb": "Bb2",
@@ -564,9 +60,9 @@ InstrumentBuilder.build({
     "E": "E2",
     "B": "B2",
     "F#": "F#2",
-    "C#": "C#3"
+    "C#": "C#3",
   },
-  "minorRoots": {
+  minorRoots: {
     "A": "A2",
     "D": "D2",
     "G": "G2",
@@ -581,7 +77,7 @@ InstrumentBuilder.build({
     "C#": "C#3",
     "G#": "G#2",
     "D#": "D#3",
-    "A#": "A#2"
+    "A#": "A#2",
   },
-  "chromaticRoot": "Bb2"
+  chromaticRoot: "Bb2",
 });
