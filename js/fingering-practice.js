@@ -222,13 +222,19 @@ function checkFingering() {
     return;
   }
 
-  const correctValves = window.fingerings?.[currentNote]?.fingering || [];
+  const noteData = window.fingerings?.[currentNote];
+  // Each alternate is a complete fingering, just like the standard fingering.
+  const acceptedFingerings = [
+    noteData?.fingering || [],
+    ...(noteData?.alternates || [])
+  ];
   const pressedValves = Array.from(document.querySelectorAll('.valve.active')).map(v => v.id);
 
-  const isCorrect =
+  const isCorrect = acceptedFingerings.some(correctValves =>
     correctValves.length === pressedValves.length &&
     correctValves.every(id => pressedValves.includes(id)) &&
-    pressedValves.every(id => correctValves.includes(id));
+    pressedValves.every(id => correctValves.includes(id))
+  );
 
   totalAttempts++;
 
