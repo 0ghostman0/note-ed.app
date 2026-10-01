@@ -4,6 +4,7 @@ InstrumentBuilder.build({
   clef: "treble",
   transpose: {"semitones":9,"steps":5},
   notes: {
+    "A3": {"fingering": ["I","II","III","IV","V","VI","6","1","lowA"]},
     "B3": {"fingering":["I","II","III","IV","V","VI","4","1"]},
     "C4": {"fingering":["I","II","III","IV","V","VI","1"]},
     "D4": {"fingering":["I","II","III","IV","V","VI"]},
