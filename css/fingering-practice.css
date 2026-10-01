@@ -1,0 +1,154 @@
+/* === PAGE LAYOUT === */
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  margin: 40px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* === HEADER === */
+table.header-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 80px;
+}
+
+.header-table td {
+  padding: 15px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.title-cell {
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.score-cell {
+  text-align: right;
+  font-size: 15px;
+}
+
+.score-value {
+  color: #16a34a;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* === FOOTER === */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  font-size: 14px;
+}
+
+/* === MAIN BODY === */
+table.body-table {
+  width: 100%;
+  vertical-align: top;
+}
+
+/* === FINGERING SVG === */
+.valve {
+  fill: #ffffff;
+  stroke: #444;
+  stroke-width: 2px;
+  cursor: pointer;
+  transition: fill 0.2s ease;
+}
+
+.valve.active {
+  fill: #000000;
+}
+
+#fingering-diagram {
+  opacity: 0.25;
+  transition: opacity 0.5s ease;
+}
+
+#fingering-diagram.game-active {
+  opacity: 1;
+}
+
+/* === NOTE DISPLAY (THIS IS THE IMPORTANT PART) === */
+.note-cell {
+  color: black;
+  font-size: initial;
+  font-weight: normal;
+}
+
+#noteDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 260px;
+  height: 200px;
+  margin: 0 auto 24px auto;
+  visibility: hidden;
+}
+
+#noteDisplay.active {
+	visibility: visible;
+}
+
+#noteRendererSvg {
+	width: 260;
+	height: 200;
+};
+
+#noteDisplay svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* === BUTTONS === */
+#button-container {
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 200px;
+  cursor: pointer;
+}
+
+/* === TROMBONE IMAGE (SAFE KEEP) === */
+#trombone-slide-image {
+  display: none;
+  width: 500px;
+  height: auto;
+  margin-top: 1rem;
+}
+
+/* === LINKS === */
+a {
+  text-decoration: none;
+  color: black;
+}
