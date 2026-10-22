@@ -117,22 +117,29 @@ window.NoteRenderer = (() => {
       : ['B4','E5','A4','D5','G4','C5','F4'];
   }
 
+  function keySignatureLayout(key, displayMode) {
+    if (displayMode !== 'keySignature' || !window.ScaleLibrary) return { signature: [], startX: config.staffStartX + 68, spacing: 18 };
+    return {
+      signature: ScaleLibrary.keySignatures[key] || [],
+      startX: config.staffStartX + 68,
+      spacing: 18
+    };
+  }
+
   function drawKeySignature(key, clef, displayMode) {
     keySignatureGroup.innerHTML = '';
-    if (displayMode !== 'keySignature' || !window.ScaleLibrary) return;
-    const signature = ScaleLibrary.keySignatures[key] || [];
+    const { signature, startX, spacing } = keySignatureLayout(key, displayMode);
     if (!signature.length) return;
 
     const accidentalType = signature[0].includes('#') ? '#' : 'b';
     const positions = keySignaturePositions(clef, accidentalType);
-    const startX = config.staffStartX + 68;
-    const spacing = 18;
 
     signature.forEach((accidental, index) => {
       const y = getY(positions[index], clef);
       const text = create('text', {
         x: startX + index * spacing,
-        y: y + (accidentalType === '#' ? 7 : 10),
+        // Flats and sharps need separate optical alignment because the glyph baselines differ.
+        y: y + (accidentalType === '#' ? 11 : 10),
         'font-size': accidentalType === '#' ? 52 : 62,
         'font-family': 'serif',
         fill: 'black'
@@ -142,14 +149,23 @@ window.NoteRenderer = (() => {
     });
   }
 
-  function drawLedger(y) {
+  function noteXForKeySignature(key, displayMode) {
+    const baseX = noteX();
+    const { signature, startX, spacing } = keySignatureLayout(key, displayMode);
+    if (!signature.length) return baseX;
+    // Keep the note clear of wider key signatures while preserving the normal position for 1–4 accidentals.
+    const afterSignature = startX + signature.length * spacing + 26;
+    return Math.max(baseX, afterSignature);
+  }
+
+  function drawLedger(y, x = noteX()) {
     ledgerLinesGroup.innerHTML = "";
     const topStaffY = config.staffTopY;
     const bottomStaffY = staffBottomY();
     if (y < topStaffY) {
       for (let yy = topStaffY - config.lineSpacing; yy >= y; yy -= config.lineSpacing) {
         ledgerLinesGroup.appendChild(create("line", {
-          x1: noteX() - config.ledgerHalfWidth, x2: noteX() + config.ledgerHalfWidth,
+          x1: x - config.ledgerHalfWidth, x2: x + config.ledgerHalfWidth,
           y1: yy, y2: yy, stroke: "black", "stroke-width": 3
         }));
       }
@@ -157,7 +173,7 @@ window.NoteRenderer = (() => {
     if (y > bottomStaffY) {
       for (let yy = bottomStaffY + config.lineSpacing; yy <= y; yy += config.lineSpacing) {
         ledgerLinesGroup.appendChild(create("line", {
-          x1: noteX() - config.ledgerHalfWidth, x2: noteX() + config.ledgerHalfWidth,
+          x1: x - config.ledgerHalfWidth, x2: x + config.ledgerHalfWidth,
           y1: yy, y2: yy, stroke: "black", "stroke-width": 3
         }));
       }
@@ -183,11 +199,12 @@ window.NoteRenderer = (() => {
   function render(note, clef="bass", options={}){
     const { key='C', displayMode='accidentals' } = options;
     const y=getY(note,clef);
+    const x=noteXForKeySignature(key, displayMode);
     drawStaff();
     clef==="bass"?drawBass():drawTreble();
     drawKeySignature(key, clef, displayMode);
-    noteHeadGroup.setAttribute("transform", `translate(${noteX()},${y+config.noteYOffset}) scale(${config.noteScale})`);
-    drawLedger(y);
+    noteHeadGroup.setAttribute("transform", `translate(${x},${y+config.noteYOffset}) scale(${config.noteScale})`);
+    drawLedger(y, x);
     drawAccidental(note, y, displayMode);
   }
 
