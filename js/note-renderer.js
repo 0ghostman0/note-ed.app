@@ -139,7 +139,7 @@ window.NoteRenderer = (() => {
       const text = create('text', {
         x: startX + index * spacing,
         // Flats and sharps need separate optical alignment because the glyph baselines differ.
-        y: y + (accidentalType === '#' ? 11 : 10),
+        y: y + (accidentalType === '#' ? 13 : 10),
         'font-size': accidentalType === '#' ? 52 : 62,
         'font-family': 'serif',
         fill: 'black'
