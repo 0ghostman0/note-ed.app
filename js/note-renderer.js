@@ -132,7 +132,7 @@ window.NoteRenderer = (() => {
       const y = getY(positions[index], clef);
       const text = create('text', {
         x: startX + index * spacing,
-        y: y + (accidentalType === '#' ? 9 : 12),
+        y: y + (accidentalType === '#' ? 7 : 10),
         'font-size': accidentalType === '#' ? 52 : 62,
         'font-family': 'serif',
         fill: 'black'
