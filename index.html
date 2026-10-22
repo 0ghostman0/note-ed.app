@@ -31,15 +31,14 @@
         <option value="Baritone_TC">Baritone TC</option>
         <option value="Tuba">Tuba</option>
         <option value="Bass_Guitar">Bass Guitar</option>
-        <option value="Percussion">Percussion</option>		
+        <option value="Percussion">Percussion</option>
       </select>
     </div>
 
     <!-- Level Selection -->
     <div id="levelTypeSelect" class="flex justify-between items-center">
-  
       <label class="flex items-center gap-2">
-        <input type="radio" id="levels" name="level-type" value="level">
+        <input type="radio" id="levels" name="level-type" value="level" checked>
         <span>Levels</span>
       </label>
 
@@ -48,57 +47,67 @@
         <span>Scales</span>
       </label>
 
-      <!-- Hidden but keeps spacing -->
-      <label class="flex items-center gap-2 invisible">
-        <input type="radio" disabled>
+      <label class="flex items-center gap-2">
+        <input type="radio" id="custom" name="level-type" value="custom">
         <span>Custom</span>
       </label>
-
     </div>
-	
-	<div id="level-options" class="hidden">
+
+    <div id="level-options" class="hidden">
       <label for="level-select" class="block font-semibold mb-1">Select Level:</label>
-      <select id="level-select" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
-        <option value="Level 1">Level 1</option>
-        <option value="Level 2">Level 2</option>
-        <option value="Level 3">Level 3</option>
-        <option value="Level 4">Level 4</option>
-      </select>
+      <select id="level-select" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"></select>
     </div>
-	
-	<div id="scale-options" class="hidden">
-      <div class="grid gap-4" style="grid-template-columns: 40% 60%;">
 
+    <div id="scale-options" class="hidden">
+      <div class="grid gap-4" style="grid-template-columns: 40% 60%;">
         <label for="keyCenter" class="block font-semibold mb-1">Key (concert pitch):</label>
         <label for="scaleType" class="block font-semibold mb-1">Scale Type:</label>
 
-        <select id="keyCenter" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
-          <option>C</option>
-          <option>F</option>
-          <option>Bb</option>
-          <option>Eb</option>
-          <option>Ab</option>
-		  <option>Db</option>
-          <option>Gb</option>
-          <option>Cb</option>
-          <option>G</option>
-          <option>D</option>
-		  <option>A</option>
-          <option>E</option>
-          <option>B</option>
-          <option>F#</option>
-          <option>C#</option>
-        </select>
-
-        <select id="scaleType" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
-          <option value="Major">Major</option>
-          <option value="Natural Minor">Natural Minor</option>
-          <option value="Harmonic Minor">Harmonic Minor</option>
-          <option value="Melodic Minor">Melodic Minor</option>
-          <option value="Chromatic">Chromatic</option>
-        </select>
-
+        <select id="keyCenter" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"></select>
+        <select id="scaleType" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"></select>
       </div>
+    </div>
+
+    <div id="custom-options" class="hidden space-y-4">
+      <div>
+        <label for="custom-clef" class="block font-semibold mb-1">Clef:</label>
+        <select id="custom-clef" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+          <option value="treble">Treble</option>
+          <option value="bass">Bass</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="custom-low" class="block font-semibold mb-1">Lowest Note:</label>
+          <select id="custom-low" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"></select>
+        </div>
+        <div>
+          <label for="custom-high" class="block font-semibold mb-1">Highest Note:</label>
+          <select id="custom-high" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"></select>
+        </div>
+      </div>
+
+      <div>
+        <label for="custom-key" class="block font-semibold mb-1">Key (written pitch):</label>
+        <select id="custom-key" class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"></select>
+      </div>
+
+      <div>
+        <span class="block font-semibold mb-1">Display:</span>
+        <div class="flex gap-6">
+          <label class="flex items-center gap-2">
+            <input type="radio" name="custom-display" value="keySignature" checked>
+            <span>Key Signature</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="radio" name="custom-display" value="accidentals">
+            <span>Accidentals</span>
+          </label>
+        </div>
+      </div>
+
+      <p class="text-sm text-gray-600">Custom range uses written notes. The selected key determines the sharp/flat notes inside that range.</p>
     </div>
 
     <!-- Timer + Target Row -->
@@ -115,22 +124,13 @@
 
       <div>
         <label for="target-number" class="block font-semibold mb-1">Goal:</label>
-        <input 
-          id="target-number" 
-          type="number" 
-          min="1" 
-          max="100" 
-          step="1"
-          value="25"
+        <input id="target-number" type="number" min="1" max="100" step="1" value="25"
           class="w-full border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-          placeholder="e.g. 20"
-        />
+          placeholder="e.g. 20" />
       </div>
     </div>
 
-    <!-- Start Button -->
-    <button 
-      onclick="startPractice()" 
+    <button onclick="startPractice()"
       class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition">
       GO!
     </button>
@@ -144,26 +144,15 @@
   <script>
     function getSelectedLevel() {
       const selectedType = document.querySelector('input[name="level-type"]:checked');
-
-      // Default safety fallback
-      if (!selectedType) {
+      if (!selectedType || selectedType.value === "level") {
         return document.getElementById("level-select").value;
       }
-
-      if (selectedType.value === "level") {
-        return document.getElementById("level-select").value;
-      }
-
       if (selectedType.value === "scale") {
         const key = document.getElementById("keyCenter").value;
         const scaleType = document.getElementById("scaleType").value;
-
-        if (scaleType === "Chromatic") {
-          return "Chromatic Scale";
-        }
-
-        return `${key} ${scaleType}`;
+        return scaleType === "Chromatic" ? "Chromatic Scale" : `${key} ${scaleType}`;
       }
+      return "Custom";
     }
 
     function startPractice() {
@@ -171,34 +160,38 @@
       const level = getSelectedLevel();
       const timer = document.getElementById("timer-select").value;
       const target = document.getElementById("target-number").value;
+      const selectedType = document.querySelector('input[name="level-type"]:checked')?.value;
+      const search = new URLSearchParams({ instrument, level, timer, target });
 
-      const url = `fingering-practice.html?instrument=${encodeURIComponent(instrument)}&level=${encodeURIComponent(level)}&timer=${encodeURIComponent(timer)}&target=${encodeURIComponent(target)}`;
+      if (selectedType === 'custom') {
+        search.set('custom', '1');
+        search.set('clef', document.getElementById('custom-clef').value);
+        search.set('low', document.getElementById('custom-low').value);
+        search.set('high', document.getElementById('custom-high').value);
+        search.set('key', document.getElementById('custom-key').value);
+        search.set('display', document.querySelector('input[name="custom-display"]:checked').value);
+      }
 
-      window.location.href = url;
+      window.location.href = `fingering-practice.html?${search.toString()}`;
     }
 
     const levelRadio = document.getElementById("levels");
     const scalesRadio = document.getElementById("scales");
-
+    const customRadio = document.getElementById("custom");
     const levelOptions = document.getElementById("level-options");
     const scaleOptions = document.getElementById("scale-options");
+    const customOptions = document.getElementById("custom-options");
 
     function updateSelectionDisplay() {
       levelOptions.classList.add("hidden");
       scaleOptions.classList.add("hidden");
-
-      if (levelRadio.checked) {
-        levelOptions.classList.remove("hidden");
-      }
-
-      if (scalesRadio.checked) {
-        scaleOptions.classList.remove("hidden");
-      }
+      customOptions.classList.add("hidden");
+      if (levelRadio.checked) levelOptions.classList.remove("hidden");
+      if (scalesRadio.checked) scaleOptions.classList.remove("hidden");
+      if (customRadio.checked) customOptions.classList.remove("hidden");
     }
 
-    levelRadio.addEventListener("change", updateSelectionDisplay);
-    scalesRadio.addEventListener("change", updateSelectionDisplay);
-
+    [levelRadio, scalesRadio, customRadio].forEach(radio => radio.addEventListener("change", updateSelectionDisplay));
     updateSelectionDisplay();
   </script>
   <script src="js/scales.js"></script>
@@ -206,4 +199,3 @@
   <script src="js/selection.js"></script>
 </body>
 </html>
-
