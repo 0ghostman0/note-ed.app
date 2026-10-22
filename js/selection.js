@@ -4,25 +4,84 @@
   const levelSelect = document.getElementById('level-select');
   const keySelect = document.getElementById('keyCenter');
   const typeSelect = document.getElementById('scaleType');
+  const customClef = document.getElementById('custom-clef');
+  const customLow = document.getElementById('custom-low');
+  const customHigh = document.getElementById('custom-high');
+  const customKey = document.getElementById('custom-key');
   const start = document.querySelector('button[onclick="startPractice()"]');
   const status = document.createElement('p');
   status.setAttribute('role', 'status');
   start.before(status);
   const cache = new Map();
   let generation = 0, data;
+
   keySelect.replaceChildren(...ScaleLibrary.keys.map(key => new Option(key, key)));
   typeSelect.replaceChildren(...[...Object.keys(ScaleLibrary.patterns), 'Chromatic'].map(type => new Option(type, type)));
+  customKey.replaceChildren(...ScaleLibrary.keys.map(key => new Option(key, key)));
+
+  function naturalNoteList() {
+    const notes = [];
+    for (let octave = 1; octave <= 7; octave++) {
+      for (const letter of 'CDEFGAB') notes.push(`${letter}${octave}`);
+    }
+    return notes;
+  }
+
+  const allNaturalNotes = naturalNoteList();
+  customLow.replaceChildren(...allNaturalNotes.map(note => new Option(note, note)));
+  customHigh.replaceChildren(...allNaturalNotes.map(note => new Option(note, note)));
+  customLow.value = 'C4';
+  customHigh.value = 'C5';
+
+  function resolveFingering(note) {
+    if (!data?.definition?.notes) return null;
+    if (data.definition.notes[note]) return data.definition.notes[note];
+    const target = ScaleLibrary.parse(note).midi;
+    return Object.entries(data.definition.notes).find(([name]) => {
+      if (name.includes('-')) return false;
+      try { return ScaleLibrary.parse(name).midi === target; } catch { return false; }
+    })?.[1] || null;
+  }
+
+  function customSelection() {
+    try {
+      const notes = ScaleLibrary.customRange(customLow.value, customHigh.value, customKey.value);
+      const missing = notes.filter(note => !resolveFingering(note));
+      return { notes, missing, error: '' };
+    } catch (error) {
+      return { notes: [], missing: [], error: error.message };
+    }
+  }
+
   function update() {
     if (!data) return;
     for (const option of keySelect.options) {
       const name = `${option.value} ${typeSelect.value}`;
       option.disabled = typeSelect.value !== 'Chromatic' && !data.levels[name];
     }
-    const name = getSelectedLevel();
-    start.disabled = !data.levels[name];
-    status.textContent = start.disabled ? (data.errors[name] || 'This selection is unavailable.') : '';
+
+    const selectedType = document.querySelector('input[name="level-type"]:checked')?.value || 'level';
+    status.textContent = '';
+    start.disabled = false;
+
+    if (selectedType === 'custom') {
+      const custom = customSelection();
+      if (custom.error) {
+        start.disabled = true;
+        status.textContent = custom.error;
+      } else if (custom.missing.length) {
+        start.disabled = true;
+        status.textContent = `This instrument has no fingering for: ${custom.missing.join(', ')}`;
+      }
+    } else {
+      const name = getSelectedLevel();
+      start.disabled = !data.levels[name];
+      status.textContent = start.disabled ? (data.errors[name] || 'This selection is unavailable.') : '';
+    }
+
     start.style.opacity = start.disabled ? '0.5' : '1';
   }
+
   async function load() {
     const ticket = ++generation;
     const id = instrumentSelect.value;
@@ -34,7 +93,14 @@
         const result = await new Promise((resolve, reject) => {
           const script = document.createElement('script');
           script.src = `js/instruments/${id}.js`;
-          script.onload = () => { resolve({ levels: window.fingeringsByLevel, errors: window.instrumentLevelErrors, definition: window.instrumentDefinition }); script.remove(); };
+          script.onload = () => {
+            resolve({
+              levels: window.fingeringsByLevel,
+              errors: window.instrumentLevelErrors,
+              definition: window.instrumentDefinition
+            });
+            script.remove();
+          };
           script.onerror = () => { script.remove(); reject(new Error('Could not load instrument.')); };
           document.body.appendChild(script);
         });
@@ -48,13 +114,26 @@
         option.disabled = !data.levels[name];
         return option;
       }));
-      levelSelect.value = data.levels[previous] ? previous : 'Level 1';
+      levelSelect.value = data.levels[previous] ? previous : (data.levels['Level 1'] ? 'Level 1' : levelSelect.options[0]?.value);
+      customClef.value = data.definition.clef === 'bass' ? 'bass' : 'treble';
       update();
     } catch (error) {
       if (ticket === generation) status.textContent = error.message;
     }
   }
+
   instrumentSelect.addEventListener('change', load);
-  [levelSelect, keySelect, typeSelect, ...document.querySelectorAll('input[name="level-type"]')].forEach(element => element.addEventListener('change', update));
+  [
+    levelSelect,
+    keySelect,
+    typeSelect,
+    customClef,
+    customLow,
+    customHigh,
+    customKey,
+    ...document.querySelectorAll('input[name="level-type"]'),
+    ...document.querySelectorAll('input[name="custom-display"]')
+  ].forEach(element => element.addEventListener('change', update));
+
   load();
 })();
