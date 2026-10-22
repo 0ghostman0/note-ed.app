@@ -36,13 +36,22 @@ function scoreFeedback(color, flashes = 2, duration = 100) {
     setTimeout(() => {
       table.style.backgroundColor = originalColor;
       count++;
-      if (count < flashes) {
-        setTimeout(flash, duration);
-      }
+      if (count < flashes) setTimeout(flash, duration);
     }, duration);
   }
 
   flash();
+}
+
+function resolveInstrumentFingering(note) {
+  const notes = window.instrumentDefinition?.notes || {};
+  if (notes[note]) return notes[note];
+  const target = ScaleLibrary.parse(note).midi;
+  const match = Object.entries(notes).find(([name]) => {
+    if (name.includes('-')) return false;
+    try { return ScaleLibrary.parse(name).midi === target; } catch { return false; }
+  });
+  return match?.[1] || null;
 }
 
 // === UI CONTROL FUNCTIONS ===
@@ -65,13 +74,10 @@ function showStartButton() {
 // === TIMER FUNCTIONS ===
 function startCountdown() {
   updateTimerDisplay();
-
   clearInterval(countdownInterval);
-
   countdownInterval = setInterval(() => {
     timeRemaining--;
     updateTimerDisplay();
-
     if (timeRemaining <= 0) {
       clearInterval(countdownInterval);
       alert("Time's up! Try again!");
@@ -81,9 +87,7 @@ function startCountdown() {
 
 function updateTimerDisplay() {
   const timerElement = document.getElementById("timer");
-  if (timerElement) {
-    timerElement.textContent = formatTime(timeRemaining);
-  }
+  if (timerElement) timerElement.textContent = formatTime(timeRemaining);
 }
 
 function resetTimer() {
@@ -96,12 +100,8 @@ function resetTimer() {
 function resetScore() {
   totalAttempts = 0;
   totalCorrect = 0;
-
   const scoreText = document.getElementById("score-text");
-  if (scoreText) {
-    scoreText.textContent = `Score: 0 / 0`;
-  }
-
+  if (scoreText) scoreText.textContent = `Score: 0 / 0`;
   const resultDiv = document.getElementById("rightornot");
   if (resultDiv) {
     resultDiv.textContent = "";
@@ -111,17 +111,11 @@ function resetScore() {
 
 function updateScoreDisplay() {
   const scoreText = document.getElementById("score-text");
-  if (scoreText) {
-    scoreText.textContent = `Score: ${totalCorrect} / ${totalAttempts}`;
-  }
+  if (scoreText) scoreText.textContent = `Score: ${totalCorrect} / ${totalAttempts}`;
 }
 
 function showFeedback(isCorrect) {
-  if (isCorrect) {
-    // Optional correct feedback
-  } else {
-    scoreFeedback("red", 2, 100);
-  }
+  if (!isCorrect) scoreFeedback("red", 2, 100);
 }
 
 // === NOTE FUNCTIONS ===
@@ -130,19 +124,16 @@ function getRandomNote() {
     console.error("No notes available.");
     return null;
   }
-
   const index = Math.floor(Math.random() * window.allNotes.length);
   return window.allNotes[index];
 }
 
 function initializeNoteRenderer() {
   const noteDisplay = document.getElementById("noteDisplay");
-
   if (!noteDisplay) {
     console.error("noteDisplay div not found.");
     return;
   }
-
   noteDisplay.style.display = "block";
   noteDisplay.style.width = "200px";
   noteDisplay.style.maxWidth = "100%";
@@ -157,8 +148,6 @@ function initializeNoteRenderer() {
 
   NoteRenderer.init("noteDisplay");
   window.__noteRendererInitialized = true;
-
-  console.log("NoteRenderer initialized.");
 }
 
 function setNewNote() {
@@ -170,68 +159,40 @@ function setNewNote() {
   const randomIndex = Math.floor(Math.random() * window.allNotes.length);
   currentNote = window.allNotes[randomIndex];
   window.currentNote = currentNote;
-
   const noteData = window.fingerings[currentNote];
 
-  if (!noteData) {
-    console.error("No data for note:", currentNote);
-    return;
-  }
+  if (!noteData || !window.NoteRenderer) return;
+  if (!window.__noteRendererInitialized) initializeNoteRenderer();
 
-  if (!window.NoteRenderer) {
-    console.error("NoteRenderer not available.");
-    return;
-  }
-
-  if (!window.__noteRendererInitialized) {
-    initializeNoteRenderer();
-  }
-
-  const clef = noteData.clef || window.instrumentClef || "treble";
-  
-  console.log("Rendering note:", currentNote);
-  console.log("Note data:", noteData);
-  console.log("Clef being used:", clef);
-  console.log("Active fingering set:", window.fingerings);
-  console.log("Available notes:", window.allNotes);
-  
-  NoteRenderer.renderNote(currentNote, clef);
-
+  const clef = window.customClef || noteData.clef || window.instrumentClef || "treble";
+  const displayMode = window.customDisplayMode || 'accidentals';
+  const key = window.customKey || 'C';
+  NoteRenderer.renderNote(currentNote, clef, { key, displayMode });
   clearActiveValves();
-
-  console.log("New note:", currentNote, "Clef:", clef);
 }
 
 function updateNoteDisplay(note) {
   if (window.NoteRenderer) {
-    const clef = window.instrumentClef || "bass";
-    NoteRenderer.renderNote(note, clef);
+    const clef = window.customClef || window.instrumentClef || "bass";
+    NoteRenderer.renderNote(note, clef, {
+      key: window.customKey || 'C',
+      displayMode: window.customDisplayMode || 'accidentals'
+    });
   }
 }
 
 function clearActiveValves() {
-  document.querySelectorAll('.valve').forEach(valve => {
-    valve.classList.remove('active');
-  });
+  document.querySelectorAll('.valve').forEach(valve => valve.classList.remove('active'));
 }
 
 // === FINGERING CHECK FUNCTIONS ===
 function checkFingering() {
-  if (!currentNote) {
-    console.error("No current note set.");
-    return;
-  }
+  if (!currentNote) return;
 
   const noteData = window.fingerings?.[currentNote];
-  // Each alternate is a complete fingering, just like the standard fingering.
-  const acceptedFingerings = [
-    noteData?.fingering || [],
-    ...(noteData?.alternates || [])
-  ];
+  const acceptedFingerings = [noteData?.fingering || [], ...(noteData?.alternates || [])];
   const pressedValves = Array.from(document.querySelectorAll('.valve.active')).map(v => v.id);
-
   const hasHalfHole = ["oboe", "bassoon"].includes((window.currentInstrument || "").toLowerCase());
-  // A full first hole also covers its half-hole region, even if only I is listed.
   const normalizedFingerings = acceptedFingerings.map(ids =>
     hasHalfHole && ids.includes("I") ? [...new Set([...ids, "Ihh"])] : ids
   );
@@ -243,12 +204,10 @@ function checkFingering() {
   );
 
   totalAttempts++;
-
   if (isCorrect) {
     totalCorrect++;
     setNewNote();
   }
-
   showFeedback(isCorrect);
   updateScoreDisplay();
   checkWinConditions();
@@ -275,19 +234,14 @@ function resetGame() {
 // === REPORT/WIN HANDLING ===
 function handleWin() {
   const name = prompt(`You got a perfect ${PERFECT_SCORE}/${PERFECT_SCORE}! Enter your name to save your score:`);
-
   if (name) {
     const timeUsed = TIMER_DURATION - timeRemaining;
     const timeLimit = TIMER_DURATION;
     const instrument = window.currentInstrument || "Unknown";
     const level = window.currentLevel || "Unknown";
-
     const rawData = `${name.trim()}|${instrument}|${level}|${PERFECT_SCORE} / ${PERFECT_SCORE}|${timeUsed}|${timeLimit}`;
     const encoded = obfuscate(rawData);
-    const url = `report.html?data=${encoded}`;
-
-    console.log("Redirecting to:", url);
-    window.location.href = url;
+    window.location.href = `report.html?data=${encoded}`;
   }
 }
 
@@ -295,30 +249,19 @@ function handleWin() {
 async function loadSVG(containerId, svgPath) {
   try {
     const res = await fetch(svgPath);
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch SVG: ${res.status} ${res.statusText}`);
-    }
-
+    if (!res.ok) throw new Error(`Failed to fetch SVG: ${res.status} ${res.statusText}`);
     const svgText = await res.text();
     const container = document.getElementById(containerId);
-
     if (container) {
       container.innerHTML = svgText;
       attachFingeringListeners();
     }
   } catch (err) {
-    console.error("SVG loading error:", err);
-
     const container = document.getElementById(containerId);
-    if (container) {
-      container.innerHTML =
-        `<p style="color: red;">Failed to load instrument diagram. Please refresh the page.</p>`;
-    }
+    if (container) container.innerHTML = `<p style="color: red;">Failed to load instrument diagram. Please refresh the page.</p>`;
   }
 }
 
-// === INSTRUMENT LOADING ===
 function loadInstrumentScript(instrument) {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
@@ -329,10 +272,6 @@ function loadInstrumentScript(instrument) {
   });
 }
 
-console.log("Instrument clef after script load:", window.instrumentClef);
-console.log("fingeringsByLevel after script load:", window.fingeringsByLevel);
-console.log("Requested level:", window.currentLevel);
-
 // === EVENT LISTENERS ===
 function attachFingeringListeners() {
   const isTrombone = (window.currentInstrument || "").toLowerCase() === "trombone";
@@ -340,11 +279,7 @@ function attachFingeringListeners() {
 
   document.querySelectorAll(".valve").forEach(el => {
     el.addEventListener("click", () => {
-	  
-	  // === Prevent clicking fingerings before Start Button is pressed
-	  if (!gameStarted) return;
-	  
-	  // === If Start Button pressed, allow clicking fingerings
+      if (!gameStarted) return;
       if (hasHalfHole && (el.id === "I" || el.id === "Ihh")) {
         const fullHole = document.getElementById("I");
         const halfHole = document.getElementById("Ihh");
@@ -353,38 +288,27 @@ function attachFingeringListeners() {
           fullHole.classList.toggle("active", active);
           halfHole.classList.toggle("active", active);
         } else {
-          // Clicking the half-hole region switches full coverage to half coverage.
-          const active = fullHole.classList.contains("active") ||
-            !halfHole.classList.contains("active");
+          const active = fullHole.classList.contains("active") || !halfHole.classList.contains("active");
           fullHole.classList.remove("active");
           halfHole.classList.toggle("active", active);
         }
       } else {
         el.classList.toggle("active");
       }
-      console.log("Valve toggled:", el.id, "Active:", el.classList.contains("active"));
     });
   });
 
-  if (isTrombone) {
-    setupTromboneHover();
-  }
+  if (isTrombone) setupTromboneHover();
 }
 
 function setupTromboneHover() {
   const slideImages = {
-    "1": "images/trombone/slide1.jpg",
-    "2": "images/trombone/slide2.jpg",
-    "3": "images/trombone/slide3.jpg",
-    "4": "images/trombone/slide4.jpg",
-    "5": "images/trombone/slide5.jpg",
-    "6": "images/trombone/slide6.jpg",
+    "1": "images/trombone/slide1.jpg", "2": "images/trombone/slide2.jpg", "3": "images/trombone/slide3.jpg",
+    "4": "images/trombone/slide4.jpg", "5": "images/trombone/slide5.jpg", "6": "images/trombone/slide6.jpg",
     "7": "images/trombone/slide7.jpg"
   };
-
   const imageElement = document.getElementById("trombone-slide-image");
   if (!imageElement) return;
-
   document.querySelectorAll(".valve").forEach(el => {
     el.addEventListener("mouseenter", () => {
       if (slideImages[el.id]) {
@@ -392,7 +316,6 @@ function setupTromboneHover() {
         imageElement.style.display = "block";
       }
     });
-
     el.addEventListener("mouseleave", () => {
       imageElement.style.display = "none";
       imageElement.src = "";
@@ -404,7 +327,7 @@ function setupTromboneHover() {
 document.addEventListener("DOMContentLoaded", async () => {
   window.currentInstrument = params.get("instrument") || "Flute";
   window.currentLevel = params.get("level") || "Level 1";
-
+  const isCustom = params.get('custom') === '1';
   const instrumentLower = window.currentInstrument.toLowerCase();
   const svgPath = `images/svg/${instrumentLower}.svg`;
   const scriptName = window.currentInstrument.replace(/\s+/g, '');
@@ -412,27 +335,30 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     await loadInstrumentScript(scriptName);
 
-    if (typeof fingeringsByLevel === "undefined") {
-      throw new Error("Instrument script missing 'fingeringsByLevel' object.");
-    }
+    if (typeof fingeringsByLevel === "undefined") throw new Error("Instrument script missing 'fingeringsByLevel' object.");
 
-    if (window.fingeringsByLevel[window.currentLevel]) {
+    if (isCustom) {
+      window.customClef = params.get('clef') || window.instrumentClef || 'treble';
+      window.customKey = params.get('key') || 'C';
+      window.customDisplayMode = params.get('display') || 'keySignature';
+      const low = params.get('low') || 'C4';
+      const high = params.get('high') || 'C5';
+      const customNotes = ScaleLibrary.customRange(low, high, window.customKey);
+      const missing = customNotes.filter(note => !resolveInstrumentFingering(note));
+      if (missing.length) throw new Error(`No fingering for ${missing.join(', ')}`);
+      window.fingerings = Object.fromEntries(customNotes.map(note => [note, resolveInstrumentFingering(note)]));
+      window.allNotes = customNotes;
+      window.currentLevel = `Custom: ${low}–${high}, ${window.customKey}`;
+    } else if (window.fingeringsByLevel[window.currentLevel]) {
       window.fingerings = window.fingeringsByLevel[window.currentLevel];
       window.allNotes = Object.keys(window.fingerings);
+      window.customDisplayMode = 'accidentals';
     } else {
       throw new Error(window.instrumentLevelErrors[window.currentLevel] || `Unknown level: ${window.currentLevel}`);
     }
 
-    console.log("Instrument:", window.currentInstrument);
-    console.log("Level:", window.currentLevel);
-    console.log("Clef:", window.instrumentClef);
-    console.log("Available notes:", window.allNotes);
-    console.log("Fingerings:", window.fingerings);
-
     initializeNoteRenderer();
-
     await loadSVG("fingering-diagram", svgPath);
-
     showStartButton();
     setNewNote();
     resetScore();
@@ -446,7 +372,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function handleLoadingError(error) {
   const diagramDiv = document.getElementById("fingering-diagram");
-
   if (diagramDiv) {
     diagramDiv.innerHTML = `
       <div style="text-align: center; color: red; padding: 20px;">
