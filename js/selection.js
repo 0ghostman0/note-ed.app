@@ -19,20 +19,6 @@
   typeSelect.replaceChildren(...[...Object.keys(ScaleLibrary.patterns), 'Chromatic'].map(type => new Option(type, type)));
   customKey.replaceChildren(...ScaleLibrary.keys.map(key => new Option(key, key)));
 
-  function naturalNoteList() {
-    const notes = [];
-    for (let octave = 1; octave <= 7; octave++) {
-      for (const letter of 'CDEFGAB') notes.push(`${letter}${octave}`);
-    }
-    return notes;
-  }
-
-  const allNaturalNotes = naturalNoteList();
-  customLow.replaceChildren(...allNaturalNotes.map(note => new Option(note, note)));
-  customHigh.replaceChildren(...allNaturalNotes.map(note => new Option(note, note)));
-  customLow.value = 'C4';
-  customHigh.value = 'C5';
-
   function resolveFingering(note) {
     if (!data?.definition?.notes) return null;
     if (data.definition.notes[note]) return data.definition.notes[note];
@@ -41,6 +27,46 @@
       if (name.includes('-')) return false;
       try { return ScaleLibrary.parse(name).midi === target; } catch { return false; }
     })?.[1] || null;
+  }
+
+  function instrumentStaffRange() {
+    const parsed = Object.keys(data.definition.notes)
+      .filter(note => !note.includes('-'))
+      .map(note => {
+        try { return ScaleLibrary.parse(note); } catch { return null; }
+      })
+      .filter(Boolean);
+
+    const minMidi = Math.min(...parsed.map(note => note.midi));
+    const maxMidi = Math.max(...parsed.map(note => note.midi));
+
+    let start = null;
+    let end = null;
+    for (let octave = 0; octave <= 8; octave++) {
+      for (const letter of 'CDEFGAB') {
+        const name = `${letter}${octave}`;
+        const midi = ScaleLibrary.parse(name).midi;
+        if (midi >= minMidi && start === null) start = ScaleLibrary.diatonicIndex(name);
+        if (midi <= maxMidi) end = ScaleLibrary.diatonicIndex(name);
+      }
+    }
+
+    const notes = [];
+    for (let i = start; i <= end; i++) notes.push(ScaleLibrary.naturalFromDiatonicIndex(i));
+    return notes;
+  }
+
+  function populateCustomRange() {
+    const choices = instrumentStaffRange();
+    const previousLow = customLow.value;
+    const previousHigh = customHigh.value;
+    customLow.replaceChildren(...choices.map(note => new Option(note, note)));
+    customHigh.replaceChildren(...choices.map(note => new Option(note, note)));
+
+    const first = choices[0];
+    const last = choices[choices.length - 1];
+    customLow.value = choices.includes(previousLow) ? previousLow : first;
+    customHigh.value = choices.includes(previousHigh) ? previousHigh : last;
   }
 
   function customSelection() {
@@ -116,6 +142,7 @@
       }));
       levelSelect.value = data.levels[previous] ? previous : (data.levels['Level 1'] ? 'Level 1' : levelSelect.options[0]?.value);
       customClef.value = data.definition.clef === 'bass' ? 'bass' : 'treble';
+      populateCustomRange();
       update();
     } catch (error) {
       if (ticket === generation) status.textContent = error.message;
