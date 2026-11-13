@@ -13,3 +13,14 @@ test('renderer accepts every offered spelling and alternate fingering',()=>{
  function element(){return {innerHTML:'',attributes:{},children:[],setAttribute(k,v){this.attributes[k]=v;},append(...nodes){this.children.push(...nodes);},appendChild(node){this.children.push(node);}};}
  for(const file of fs.readdirSync(path.join(root,'js/instruments'))){const c=load(file.slice(0,-3)),container=element();c.document={createElementNS:element,getElementById:()=>container};vm.runInContext(fs.readFileSync(path.join(root,'js/note-renderer.js'),'utf8'),c);c.NoteRenderer.init('test');for(const pool of Object.values(c.fingeringsByLevel))for(const note of Object.keys(pool))c.NoteRenderer.renderNote(note,c.instrumentClef);assert.ok(!JSON.stringify(container).includes('NaN'));}
 });
+
+test('both horns offer Levels 1–4 and chromatic practice from written F3', () => {
+  for (const id of ['Single_Horn', 'Double_Horn']) {
+    const { fingeringsByLevel, scaleSequences } = load(id);
+    assert.ok(fingeringsByLevel['Level 1'], id);
+    for (const name of ['Level 2', 'Level 3', 'Level 4', 'Chromatic Scale']) {
+      assert.deepEqual(Array.from(fingeringsByLevel[name].F3.fingering), ['1'], `${id}: ${name}`);
+    }
+    assert.equal(scaleSequences['Chromatic Scale'][0], 'F3', id);
+  }
+});
