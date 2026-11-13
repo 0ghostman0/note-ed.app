@@ -26,7 +26,7 @@ The builder first tries the requested register, then the nearest complete octave
 
 ## Existing data limitations
 
-Both horn files lack F3, which their Levels 2–4 and chromatic scale request. Those choices are disabled until an F3 fingering is supplied. The bass-guitar data covers E2–B3, so 20 scale choices cannot fit a complete octave; these are also disabled. Existing fingering accuracy is retained, not independently audited against an instrument reference.
+The bass-guitar data covers E2–B3, so 20 scale choices cannot fit a complete octave. Those choices are disabled. Existing fingering accuracy is retained, not independently audited against an instrument reference.
 
 ## Verification
 
